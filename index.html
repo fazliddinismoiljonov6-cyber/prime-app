@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prime</title>
+<style>
+:root{--bg:#f6f4ee;--surf:#fff;--ink:#1c2321;--mute:#6b746f;--line:#e2ded3;--acc:#1f6f5c;--acc2:#e9f2ee;--warn:#c8542f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a18;--surf:#1d2522;--ink:#eef1ee;--mute:#98a39d;--line:#2c3631;--acc:#5fc4a6;--acc2:#233a33;--warn:#f08a62}}
+:root[data-theme="dark"]{--bg:#141a18;--surf:#1d2522;--ink:#eef1ee;--mute:#98a39d;--line:#2c3631;--acc:#5fc4a6;--acc2:#233a33;--warn:#f08a62}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;max-width:480px;margin:auto;padding:16px 16px 96px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.top b{font-size:18px}
+.coin{background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-weight:600}
+.hero{margin-top:16px;background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:20px}
+.hero h1{margin:0 0 4px;font-size:22px}
+.hero p{margin:0;color:var(--mute)}
+.big{display:flex;gap:24px;margin:18px 0 12px}
+.big div span{display:block;font-size:34px;font-weight:700;font-family:Georgia,serif}
+.big div small{color:var(--mute)}
+.bar{display:flex;gap:4px}
+.bar i{flex:1;height:10px;border-radius:5px;background:var(--line)}
+.bar i.on{background:var(--acc)}
+.cap{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);margin-top:6px}
+h2{font-size:17px;margin:24px 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sk{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:16px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.sk.today{background:var(--acc2);border-color:var(--acc)}
+.sk em{font-style:normal;font-size:26px;display:block}
+.sk b{display:block;margin-top:6px}
+.sk small{color:var(--mute)}
+.row{display:flex;align-items:center;justify-content:space-between;background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-top:10px}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:12px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+.bands .r{display:flex;align-items:center;gap:10px;margin:8px 0}
+.bands .r span:first-child{width:76px}
+.bands .t{flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bands .t i{display:block;height:100%;background:var(--acc)}
+.bands .r span:last-child{width:28px;text-align:right;font-weight:600}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--surf);border-top:1px solid var(--line);display:flex;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:none;border:0;color:var(--mute);font:inherit;font-size:12px;cursor:pointer;padding:4px 0}
+nav button.on{color:var(--acc);font-weight:700}
+nav button span{display:block;font-size:20px}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.show{opacity:1}
+.hide{display:none}textarea{width:100%;min-height:220px;border:1px solid var(--line);border-radius:14px;background:var(--surf);color:var(--ink);font:16px/1.5 Georgia,serif;padding:14px;resize:vertical}.q{background:var(--acc2);border-radius:14px;padding:14px;margin:10px 0}.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:13px;margin:8px 0 12px}.back{background:none;border:0;color:var(--acc);font:inherit;font-weight:600;padding:0;margin-bottom:8px;cursor:pointer}.res{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}.ov{font:700 40px Georgia,serif}.res li{margin:6px 0}.btn[disabled]{opacity:.5}</style>
+</head>
+<body>
+<div id="home"><div class="top"><b>Prime</b><span class="coin">🪙 54</span></div>
+
+<section class="hero">
+<h1>Salom, Fazliddin</h1>
+<p>Maqsad: Band 8.0</p>
+<div class="big"><div><span>54</span><small>imtihongacha kun</small></div><div><span>4.5</span><small>hozirgi daraja</small></div></div>
+<div class="bar" id="bar"></div>
+<div class="cap"><span>Hozir 4.5</span><span>Maqsad 8.0</span></div>
+</section>
+
+<div class="row"><span><b>V10T1</b> · Listening, to'liq test</span><button class="btn" data-msg="Test davom ettirilmoqda">Davom etish</button></div>
+
+<h2>Bugun Writing mashq qiling</h2>
+<div class="grid">
+<button class="sk" data-msg="Listening mashqlari"><em>🎧</em><b>Listening</b><small>Band 5.0</small></button>
+<button class="sk" data-go="reading"><em>📖</em><b>Reading</b><small>Band 4.5</small></button>
+<button class="sk today" data-go="writing"><em>✍️</em><b>Writing</b><small>Bugungi tavsiya</small></button>
+<button class="sk" data-msg="Speaking mashqlari"><em>🎤</em><b>Speaking</b><small>Band 4.0</small></button>
+</div>
+
+<h2>Skill bo'yicha band</h2>
+<div class="bands">
+<div class="r"><span>Listening</span><div class="t"><i style="width:62%"></i></div><span>5.0</span></div>
+<div class="r"><span>Reading</span><div class="t"><i style="width:56%"></i></div><span>4.5</span></div>
+<div class="r"><span>Writing</span><div class="t"><i style="width:50%"></i></div><span>4.0</span></div>
+<div class="r"><span>Speaking</span><div class="t"><i style="width:50%"></i></div><span>4.0</span></div>
+</div>
+
+<div class="row"><span><b>Do'st taklif qiling</b><br><small style="color:var(--mute)">Har biri uchun +10 coin · 53/200</small></span><button class="btn" data-msg="Havola nusxalandi">Taklif</button></div>
+
+</div>
+<div id="writing" class="hide">
+<button class="back" data-go="home">← Orqaga</button>
+<h2 style="margin-top:0">Writing Task 2</h2>
+<div class="q" id="topic"></div>
+<textarea id="essay" placeholder="Essayingizni shu yerga yozing (kamida 250 so'z)"></textarea>
+<div class="meta"><span id="wc">0 so'z</span><button class="back" id="newq" style="margin:0">Boshqa mavzu</button></div>
+<button class="btn" id="check" style="width:100%">AI bilan tekshirish</button>
+<div id="out"></div>
+</div>
+<div id="reading" class="hide">
+<button class="back" data-go="home">← Orqaga</button>
+<h2 style="margin-top:0">Reading: True / False / Not Given</h2>
+<div class="q" id="passage" style="font:16px/1.6 Georgia,serif"></div>
+<div id="rq"></div>
+<button class="btn" id="rcheck" style="width:100%;margin-top:10px">Javoblarni tekshirish</button>
+<div id="rout"></div>
+</div>
+<nav>
+<button class="on" data-go="home"><span>🏠</span>Bosh</button>
+<button data-msg="Mashqlar"><span>📚</span>Mashq</button>
+<button data-msg="Reyting"><span>🏆</span>Reyting</button>
+<button data-msg="Jonli"><span>🎙️</span>Live</button>
+<button data-msg="Lug'at"><span>🔤</span>Vocab</button>
+<button data-msg="Progress"><span>📈</span>Progress</button>
+</nav>
+<div id="toast"></div>
+<script>
+try{Telegram.WebApp.ready();Telegram.WebApp.expand()}catch(e){}
+var bar=document.getElementById('bar');
+for(var i=0;i<9;i++){var e=document.createElement('i');if(i<5)e.className='on';bar.appendChild(e)}
+var t=document.getElementById('toast'),tm;
+document.addEventListener('click',function(ev){
+var b=ev.target.closest('[data-msg]');if(!b)return;
+t.textContent=b.getAttribute('data-msg')+' (keyingi bosqichda ulanadi)';
+t.className='show';clearTimeout(tm);tm=setTimeout(function(){t.className=''},1800)});
+var topics=['Some people think universities should focus on job skills, others on knowledge for its own sake. Discuss both views and give your opinion.','Many people believe social media does more harm than good to young people. To what extent do you agree or disagree?','Some say governments should spend money on public transport rather than roads. Discuss both views and give your opinion.','Online learning is replacing classroom teaching. Is this a positive or negative development?'];
+var ti=0,$=function(i){return document.getElementById(i)};
+function setTopic(){$('topic').textContent=topics[ti]}
+setTopic();
+document.addEventListener('click',function(ev){var g=ev.target.closest('[data-go]');if(!g)return;var w=g.getAttribute('data-go');['home','writing','reading'].forEach(function(n){$(n).className=n==w?'':'hide'});window.scrollTo(0,0)});
+$('newq').onclick=function(){ti=(ti+1)%topics.length;setTopic();$('out').textContent=''};
+$('essay').oninput=function(){var n=this.value.trim().split(/\s+/).filter(Boolean).length;$('wc').textContent=n+' so\'z'+(n<250?' (kamida 250 kerak)':'')};
+$('check').onclick=async function(){
+var text=$('essay').value.trim(),out=$('out'),btn=this;
+if(text.split(/\s+/).length<40){out.textContent='Avval kamida 40 so\'zlik matn yozing.';return}
+btn.disabled=true;out.textContent='Tekshirilmoqda...';
+try{
+var resp=await fetch('/api/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:topics[ti],essay:text})});if(!resp.ok)throw new Error('x');var r=await resp.json();
+out.textContent='';
+var d=document.createElement('div');d.className='res';
+var h=document.createElement('div');h.className='ov';h.textContent='Band '+r.overall;d.appendChild(h);
+[['Task response',r.task],['Coherence',r.coherence],['Lexical resource',r.lexical],['Grammar',r.grammar]].forEach(function(c){var p=document.createElement('div');p.className='r';p.style.cssText='display:flex;justify-content:space-between;margin:6px 0';p.innerHTML='<span></span><b></b>';p.children[0].textContent=c[0];p.children[1].textContent=c[1];d.appendChild(p)});
+[['Kuchli tomonlar',r.strengths],['Tuzatish kerak',r.fixes]].forEach(function(s){var t=document.createElement('b');t.textContent=s[0];d.appendChild(t);var u=document.createElement('ul');(s[1]||[]).forEach(function(x){var l=document.createElement('li');l.textContent=x;u.appendChild(l)});d.appendChild(u)});
+var tp=document.createElement('p');tp.textContent=r.tip;d.appendChild(tp);out.appendChild(d);
+}catch(e){out.textContent='Xatolik: qayta urinib ko\'ring.'}
+btn.disabled=false};
+var RP='Over the past decade, keeping bees on city rooftops has grown from a niche hobby into a common sight in many large cities. Supporters say urban hives help pollination, since parks, balconies and community gardens offer a surprisingly wide range of flowers throughout the year. In contrast, the countryside often provides large areas of a single crop that flowers for only a few weeks. A study of hives in one European capital found that city bees produced, on average, more honey per hive than bees on nearby farms. However, some ecologists warn that the trend has limits. Honeybees compete for food with wild bee species, which are already declining, and a city can support only a limited number of hives. These experts suggest that planting more flowers would help wild bees more than adding new hives. Meanwhile, most beekeepers in the study said they began keeping bees to learn about nature rather than to earn money.';
+var RQ=[['Urban beekeeping has become more common in recent years.','True','Matnning birinchi gapi: shahar tomlarida asalarichilik keng tarqalgan.'],['Farmland always offers more flowers than cities.','False','Matnda aksincha: qishloqda bitta ekin bir necha hafta gullaydi, shaharda gullar yil bo\'yi bor.'],['City hives in the study produced more honey than farm hives.','True','Tadqiqotda shahar asalarilari har bir uyada ko\'proq asal bergan.'],['Honeybees are the main reason wild bees are declining.','Not Given','Matnda ular oziq uchun raqobatlashishi aytilgan, lekin kamayishning asosiy sababi ekanligi aytilmagan.'],['Most beekeepers in the study kept bees mainly to make money.','False','Ko\'pchilik tabiatni o\'rganish uchun boshlagan, pul uchun emas.']];
+$('passage').textContent=RP;
+var rq=$('rq');
+RQ.forEach(function(q,i){var b=document.createElement('div');b.className='row';b.style.display='block';var p=document.createElement('div');p.textContent=(i+1)+'. '+q[0];p.style.marginBottom='8px';b.appendChild(p);['True','False','Not Given'].forEach(function(o){var l=document.createElement('label');l.style.cssText='margin-right:14px;white-space:nowrap';var r=document.createElement('input');r.type='radio';r.name='q'+i;r.value=o;l.appendChild(r);l.appendChild(document.createTextNode(' '+o));b.appendChild(l)});var f=document.createElement('div');f.id='fb'+i;f.style.cssText='margin-top:8px;font-size:14px';b.appendChild(f);rq.appendChild(b)});
+$('rcheck').onclick=function(){var s=0;RQ.forEach(function(q,i){var c=document.querySelector('input[name=q'+i+']:checked'),f=$('fb'+i),ok=c&&c.value==q[1];if(ok)s++;f.style.color=ok?'var(--acc)':'var(--warn)';f.textContent=(ok?'To\'g\'ri. ':(c?'Noto\'g\'ri. ':'Javob tanlanmagan. ')+'To\'g\'ri javob: '+q[1]+'. ')+q[2]});$('rout').innerHTML='<div class="res"><div class="ov"></div><small style="color:var(--mute)">to\'g\'ri javoblar</small></div>';$('rout').querySelector('.ov').textContent=s+' / '+RQ.length};
+</script>
+</body>
+</html>
